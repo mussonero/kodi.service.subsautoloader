@@ -27,13 +27,30 @@ for i in range(1, 8):  # Assuming you have 7 slots, adjust as needed
 
 debug(f'Loaded language mapping from settings: {language_mapping}')
 
+def find_subs_folder(rootPath):
+    # Check default folder first
+    defaultsubsdir = addon.getSetting('defaultsubsdir')
+    debug(f'Checking for default subs folder: {defaultsubsdir}')
+    if defaultsubsdir and xbmcvfs.exists(os.path.join(rootPath, defaultsubsdir)):
+        return os.path.join(rootPath, defaultsubsdir)
+    # Check other possible folders
+    possible_folders = {'Subs', 'Sub', 'Subtitles', 'subs', 'sub', 'subtitles'}
+    for folder in xbmcvfs.listdir(rootPath)[0]:
+        if folder in possible_folders:
+            return os.path.join(rootPath, folder)
+    # Return None if none of the folders exist
+    return None
+        
 def getSubFilePaths(videoPath):
     # Extract the video file name from the video path
     videoFile = os.path.basename(videoPath)
     # Extract the root path from the video path
     rootPath = os.path.dirname(videoPath)
     # Construct the subtitle path using the root path
-    subPath = os.path.join(rootPath, 'Subs')
+    subPath = find_subs_folder(rootPath)
+    if subPath is None:
+        return None
+    debug(f'Checking for subtitles in: {subPath}')
     # Get the user-configured subtitle language from Kodi settings
     subLanguage = execRPC('Settings.GetSettingValue', {'setting': 'subtitles.languages'})['value'][0].lower()
     # Print the subtitle language used

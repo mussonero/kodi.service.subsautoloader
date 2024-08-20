@@ -9,9 +9,6 @@
         <setting id="language3" type="labelenum" label="Language 3" values="English|Italian|Spanish|French|German|Other" default="2" />
         <setting id="langcode3" type="text" label="Language Code 3" default="spa" />
 
-        <setting id="language3" type="labelenum" label="Language 3" values="English|Italian|Spanish|French|German|Other" default="2" />
-        <setting id="langcode3" type="text" label="Language Code 3" default="spa" />
-
         <setting id="language4" type="labelenum" label="Language 4" values="English|Italian|Spanish|French|German|Other" default="3" />
         <setting id="langcode4" type="text" label="Language Code 4" default="fra" />
 
@@ -26,5 +23,8 @@
         <setting id="langcode7" type="text" label="Language Code 7" default="" />
         
         <!-- Add as many slots as you deem necessary -->
+    </category>
+    <category label="Default Subs Folder">
+        <setting id="defaultsubsdir" type="text" label="Default Subs Folder" default="Subs" />
     </category>
 </settings>
